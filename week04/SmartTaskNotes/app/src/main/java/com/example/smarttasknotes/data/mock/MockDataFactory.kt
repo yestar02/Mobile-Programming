@@ -1,9 +1,10 @@
 package com.example.smarttasknotes.data.mock
 
+import androidx.compose.runtime.mutableStateListOf
 import com.example.smarttasknotes.data.model.TaskNoteType
 
 object MockDataFactory {
-    fun getDataList() = listOf(
+    fun getDataList() = mutableStateListOf<TaskNoteType>(
         TaskNoteType.Task(
             id = 1,
             title = "모프 과제 제출",
