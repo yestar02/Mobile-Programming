@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -33,6 +34,7 @@ fun Week04HomeScreenB(modifier: Modifier = Modifier) {
     }
 
     var title by remember { mutableStateOf("") }
+    var isChecked by remember { mutableStateOf(false) }
 
     fun addTaskItem() {
         if (title.isEmpty()) return
@@ -98,10 +100,23 @@ fun Week04HomeScreenB(modifier: Modifier = Modifier) {
                 Text("미완성만 보기")
             // TODO : Switch 추가하기
 
+                Switch(
+                    checked = isChecked,
+                    onCheckedChange = {isChecked = it})
+
             }
 
             // TODO : TaskNoteItem04가 수행되도록 수정
-            itemList.forEach {
+            
+            val visibleList = if(isChecked){
+                itemList.filter { it is TaskNoteType.Task && !it.done }
+                // 스위치를 키면 Task 타입이면서 미완성인 애만 뜨도록
+
+            }else{
+                itemList // 스위치가 꺼져있으면 다 불러오면 되니까
+            }
+
+            visibleList.forEach {
                 TaskNoteItem04(item = it, toggleTaskDone=toggleTaskDone)
                 Spacer(Modifier.height(8.dp))
             }
