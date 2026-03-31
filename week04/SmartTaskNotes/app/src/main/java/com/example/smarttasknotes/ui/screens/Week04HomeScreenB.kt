@@ -110,7 +110,7 @@ fun Week04HomeScreenB(modifier: Modifier = Modifier) {
             
             val visibleList = if(isChecked){
                 itemList.filter { it is TaskNoteType.Task && !it.done }
-                // 스위치를 키면 Task 타입이면서 미완성인 애만 뜨도록
+
 
             }else{
                 itemList // 스위치가 꺼져있으면 다 불러오면 되니까
