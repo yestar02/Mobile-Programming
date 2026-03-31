@@ -1,12 +1,16 @@
 package com.example.smarttasknotes.ui.screens
 
+import android.R.id.home
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
@@ -24,8 +28,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.smarttasknotes.data.mock.MockDataFactory
 import com.example.smarttasknotes.data.model.TaskNoteType
+import com.example.smarttasknotes.ui.components.SingleChoiceButton
 import com.example.smarttasknotes.ui.components.TaskNoteItem
 import com.example.smarttasknotes.ui.components.TaskNoteTitle
+import com.example.smarttasknotes.util.HomeTab
 import kotlin.collections.filter
 import kotlin.collections.forEach
 import kotlin.collections.indexOfFirst
@@ -53,6 +59,14 @@ fun Week05HomeScreenA(modifier: Modifier = Modifier) {
         itemList.filter { it is TaskNoteType.Task && !it.done }
     } else {
         itemList
+    }
+
+    var selectedHomeTab by remember {
+        mutableStateOf(HomeTab.TASK)
+    }
+
+    val onChangeSelectedHomeTab : (HomeTab)-> Unit= { tab->
+        selectedHomeTab=tab
     }
 
     val toggleTaskDone = { taskId: Int ->
@@ -100,6 +114,11 @@ fun Week05HomeScreenA(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(20.dp))
 
         // TODO : SingleChoiceButton 호출하기
+
+        SingleChoiceButton(
+            selectedHomeTab = selectedHomeTab,
+            onChangeSelectedHomeTab = onChangeSelectedHomeTab
+        )
 
         Text(
             text = "입력한 내용을 바로 목록에 추가해보세요 ✨",
@@ -152,6 +171,18 @@ fun Week05HomeScreenA(modifier: Modifier = Modifier) {
             }
 
             // TODO : LazyColumn으로 변경하기
+            LazyColumn(
+                contentPadding = PaddingValues(10.dp),
+                verticalArrangement = Arrangement.spacedBy(10.dp)
+            ) {
+                items(items=filteredItems){item ->
+                    TaskNoteItem(
+                        item = item,
+                        toggleTaskDone = toggleTaskDone
+                    )
+                }
+            }
+
             filteredItems.forEach {
                 TaskNoteItem(
                     item = it,

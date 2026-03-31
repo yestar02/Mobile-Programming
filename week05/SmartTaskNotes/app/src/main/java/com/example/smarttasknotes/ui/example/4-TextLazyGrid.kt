@@ -22,8 +22,8 @@ fun TextLazyGrid(dataList: MutableList<String>, modifier: Modifier = Modifier) {
 //    LazyHorizontalGrid(
 //        rows = GridCells.Fixed(2),
     LazyVerticalGrid(
-        //columns = GridCells.Adaptive(minSize = 100.dp),
-        columns = GridCells.Fixed(2),
+        columns = GridCells.Adaptive(minSize = 100.dp),
+        //columns = GridCells.Fixed(2),
         contentPadding = PaddingValues(10.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp),
         verticalArrangement = Arrangement.spacedBy(10.dp),
