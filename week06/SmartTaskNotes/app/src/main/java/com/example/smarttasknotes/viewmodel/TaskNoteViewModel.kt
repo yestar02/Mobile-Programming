@@ -78,4 +78,8 @@ class TaskNoteViewModel : ViewModel() {
         clearInputs()
     }
 
+    val onDeleteTask :(TaskNoteType.Task)-> Unit = { task ->
+        itemList.remove(task)
+    }
+
 }

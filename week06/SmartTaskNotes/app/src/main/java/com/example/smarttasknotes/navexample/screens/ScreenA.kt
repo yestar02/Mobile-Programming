@@ -12,7 +12,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ScreenA(onNavigate:()->Unit) {
+fun ScreenA(onNavigateC:()->Unit, onNavigateD: () -> Unit) {
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -24,9 +24,15 @@ fun ScreenA(onNavigate:()->Unit) {
         )
 
         Button(onClick = {
-            onNavigate()
+            onNavigateC()
         }){
             Text(text = "Go to Screen C")
+        }
+
+        Button(onClick = {
+            onNavigateD()
+        }){
+            Text(text = "Go to Screen D")
         }
     }
 }
