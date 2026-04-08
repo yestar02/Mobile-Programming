@@ -19,6 +19,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,7 +42,8 @@ fun HomeScreen(
     Column( // 화면 방향에 상관없이 학번이름은 상단에 보이게
         modifier = modifier
             .fillMaxSize()
-            .padding(15.dp)
+            .padding(15.dp),
+        horizontalAlignment = Alignment.CenterHorizontally // 가운데 정렬 추가
     ) {
         Text(
             text = "202213359 우예성",
@@ -57,21 +59,24 @@ fun HomeScreen(
                 vm.itemList, // 그림은 몸통도 그려야하니까 전체로 넘기기
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(350.dp)
+                    .weight(1f)
+                    .scale(2f) // 너무 작아서 2배 키웠음
             )
 
             Spacer(modifier = Modifier.height(20.dp))
 
             LazyVerticalGrid(
                 columns = GridCells.Fixed(2),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
             ) {
                 items(itemWithoutBody) { item -> // 선택창에 몸통은 없어야하니까 필터된 리스트 갖고오기
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable { vm.selectedItem(item) }
-                            .padding(vertical = 8.dp),
+                            .padding(vertical = 4.dp),
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         Checkbox(
@@ -91,27 +96,33 @@ fun HomeScreen(
 
         } else { // 가로모드니까 row로 2개 배열하기
             Row(
-                modifier = Modifier.fillMaxSize()
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 DrawItems(
                     itemList = vm.itemList,
                     modifier = Modifier
-                        .width(300.dp)
                         .fillMaxHeight()
+                        .weight(1f)
+                        .scale(1.8f)
                 )
 
                 Spacer(modifier = Modifier.width(20.dp))
 
                 LazyVerticalGrid( // 선택창은 세로모드일때와 동일
                     columns = GridCells.Fixed(2),
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .weight(1f)
                 ) {
                     items(itemWithoutBody) { item -> // 선택창에 몸통은 없어야하니까 필터된 리스트 갖고오기
                         Row(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .clickable { vm.selectedItem(item) }
-                                .padding(vertical = 8.dp),
+                                .padding(vertical = 2.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
                             Checkbox(
