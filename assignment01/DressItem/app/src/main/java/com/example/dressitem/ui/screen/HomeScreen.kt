@@ -112,7 +112,7 @@ fun HomeScreen(
                 Spacer(modifier = Modifier.width(20.dp))
 
                 LazyVerticalGrid( // 선택창은 세로모드일때와 동일
-                    columns = GridCells.Fixed(2),
+                    columns = GridCells.Fixed(2), // 4.dp로 하니까 스크롤바 생겼음
                     modifier = Modifier
                         .fillMaxWidth()
                         .weight(1f)

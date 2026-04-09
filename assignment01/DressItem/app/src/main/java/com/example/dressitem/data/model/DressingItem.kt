@@ -6,7 +6,7 @@ data class DressingItem(
     val name : String,
     val id : Int,
     val isSelected : Boolean = false,
-    val drawLevel : Int
+    val drawLevel : Int // 그릴 때 우선순위
 )
 
 val dressingParts = listOf(
@@ -15,10 +15,10 @@ val dressingParts = listOf(
     DressingItem("ears", R.drawable.ears, drawLevel = 1),
     DressingItem("eyebrows", R.drawable.eyebrows, drawLevel = 2),
     DressingItem("eyes", R.drawable.eyes, drawLevel = 1),
-    DressingItem("glasses", R.drawable.glasses, drawLevel = 3),
+    DressingItem("glasses", R.drawable.glasses, drawLevel = 3), // 안경은 눈보다 위에 그려져야 함
     DressingItem("hat", R.drawable.hat, drawLevel = 3),
     DressingItem("mouth", R.drawable.mouth, drawLevel = 1),
-    DressingItem("mustache", R.drawable.mustache, drawLevel = 3),
+    DressingItem("mustache", R.drawable.mustache, drawLevel = 3), // 수염도 입보다는 위에 그려져야 함
     DressingItem("nose", R.drawable.nose, drawLevel = 1),
-    DressingItem("shoes", R.drawable.shoes, drawLevel = 1),
+    DressingItem("shoes", R.drawable.shoes, drawLevel = 1)
 )
