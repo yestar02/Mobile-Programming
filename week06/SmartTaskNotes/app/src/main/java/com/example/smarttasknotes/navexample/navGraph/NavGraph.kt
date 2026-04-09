@@ -47,7 +47,12 @@ fun NavGraph(
             ScreenB()
         }
         composable<C> {
-            ScreenC(onNavigate = {navController.navigate(route = Home)})
+            ScreenC(onNavigate = {navController.navigate(route = Home){
+                popUpTo(Home){
+                    inclusive = true
+                }
+            }
+            })
         }
         composable<D> {
             ScreenD()
