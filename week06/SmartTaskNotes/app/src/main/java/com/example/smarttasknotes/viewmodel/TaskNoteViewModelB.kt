@@ -111,10 +111,13 @@ class TaskNoteViewModelB : ViewModel() {
 
     fun addTaskItem() {
         if (title.isEmpty()) return
+
+        val newId = (itemList.maxOfOrNull { it.id }?:0)+1
+
         if (dueDate.isBlank())
-            itemList.add(TaskNoteType.Task(id = itemList.size, title = title))
+            itemList.add(TaskNoteType.Task(id = newId, title = title))
         else
-            itemList.add(TaskNoteType.Task(id = itemList.size, title = title, dueDate = dueDate))
+            itemList.add(TaskNoteType.Task(id = newId, title = title, dueDate = dueDate))
 
         clearInputs()
         editingId = -1
@@ -122,8 +125,11 @@ class TaskNoteViewModelB : ViewModel() {
 
     fun addNoteItem() {
         if (title.isBlank() || content.isBlank()) return
+
+        val newId = (itemList.maxOfOrNull { it.id }?:0)+1
+
         val newNote = TaskNoteType.Note(
-            id = itemList.size,
+            id = newId,
             title = title,
             content = content
         )

@@ -26,6 +26,7 @@ import com.example.smarttasknotes.viewmodel.TaskNoteViewModel
 fun Week06AddScreen(
     state: AddUiState,
     actions: AddUiActions,
+    onNavigateBack : () -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -65,7 +66,8 @@ fun Week06AddScreen(
 
         Button(
             onClick = {
-               /*TODO()*/
+               actions.saveItem()
+                onNavigateBack()
             },
             modifier = Modifier.fillMaxWidth()
         ) {

@@ -1,5 +1,6 @@
 package com.example.smarttasknotes.ui.screens
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,6 +32,7 @@ import com.example.smarttasknotes.viewmodel.TaskNoteViewModelB
 fun Week06HomeScreenB(
     homeUiState: HomeUiState,
     homeUiActions: HomeUiActions,
+    onNavigateAddScreen: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -55,7 +57,7 @@ fun Week06HomeScreenB(
         )
 
         Button(
-            onClick = { /*TODO*/ },
+            onClick = { onNavigateAddScreen(-1) },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("✨ 새 항목 추가")
@@ -93,7 +95,8 @@ fun Week06HomeScreenB(
                     TaskNoteItem(
                         item = it,
                         toggleTaskDone = homeUiActions.toggleTaskDone,
-                        onDeleteTask = {}
+                        onDeleteTask = {},
+                        modifier = Modifier.clickable { onNavigateAddScreen(it.id) }
                     )
                 }
             }
@@ -101,12 +104,12 @@ fun Week06HomeScreenB(
     }
 }
 
-@Preview
-@Composable
-private fun Week06HomeScreenBPreview() {
-    val vm: TaskNoteViewModelB =viewModel()
-    Week06HomeScreenB(
-        vm.homeUiState,
-        vm.homeUiActions
-    )
-}
+//@Preview
+//@Composable
+//private fun Week06HomeScreenBPreview() {
+//    val vm: TaskNoteViewModelB = viewModel()
+//    Week06HomeScreenB(
+//        vm.homeUiState,
+//        vm.homeUiActions
+//    )
+//}
