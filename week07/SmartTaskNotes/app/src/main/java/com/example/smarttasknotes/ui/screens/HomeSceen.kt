@@ -42,10 +42,10 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 private fun GreetingSection() {
     var now by remember { mutableStateOf(LocalDateTime.now()) }
 
-    LaunchedEffect(Unit) {
+    LaunchedEffect(Unit) { // 1초간 멈춰라는 함수인데, 그러면 UI의 모든 함수가 멈춰버림. 때문에 UI 메인 함수에 영향이 가지 않게 sideEffect로 뺌.
         while (true) {
             delay(1000)
-            now = LocalDateTime.now()
+            now = LocalDateTime.now() // 1초마다 불러오는 시간을 상태값으로 저장
         }
     }
 

@@ -50,10 +50,10 @@ fun MainScreen(modifier: Modifier = Modifier) {
     val onNavigate: (NavRoute) -> Unit = { route ->
         navController.navigate(route) {
             popUpTo(navController.graph.findStartDestination().id) {
-                saveState = true
+                saveState = true  // 사용자가 입력해 둔것 저장
             }
-            launchSingleTop = true
-            restoreState = true
+            launchSingleTop = true  // 백스택에 중복된 요소가 오지 않게
+            restoreState = true //아까 save한 거 복구
         }
     }
 
@@ -62,13 +62,13 @@ fun MainScreen(modifier: Modifier = Modifier) {
             TopAppBar( // 추가 @OptIn(ExperimentalMaterial3Api::class)
                 title = { Text(text = currentRoute.title) },
                 navigationIcon = {
-                    if (currentRoute.isRoot) {
+                    if (currentRoute.isRoot) { // 루트이면 햄버거 메뉴 보아게
                         IconButton(onClick = {
                             /* TODO() */
                         }) {
                             Icon(Icons.Filled.Menu, contentDescription = "메뉴")
                         }
-                    } else {
+                    } else { // 루트가 아니면 좌측 상단 백 버튼 추가
                         IconButton(onClick = { navController.navigateUp() }) {
                             Icon(
                                 Icons.AutoMirrored.Filled.ArrowBack,
@@ -80,10 +80,24 @@ fun MainScreen(modifier: Modifier = Modifier) {
             )
         },
         bottomBar = {
+            if(currentRoute.showBottomBar){
+                BottomNavigationBar(
+                    currentDestination = currentDestination,
+                    onNavigate = onNavigate
+                )
+            }
 
         },
         floatingActionButton = {
-
+            if(currentRoute.showFab){ // boolean 값에 따라 플로팅 액션 버튼을 보여줌
+                FloatingActionButton(
+                    onClick = {
+                        navController.navigate(route = NavRoute.Add(-1)) // 눌렀을 때 새 항목 추가하는 화면으로 전환
+                    }
+                ) {
+                   Icon(Icons.Default.Add, contentDescription = "Add")
+                }
+            }
         }
     ) { paddingValues ->
         TaskNoteAppNavGraph(
